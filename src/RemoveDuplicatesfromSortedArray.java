@@ -12,7 +12,9 @@ public class RemoveDuplicatesfromSortedArray {
         for (int i=0; i<nums.length; i++)
             if (nums[i]!=nums[j]) nums[++j]=nums[i];
         //for(int k : nums) System.out.println(k);
+        System.out.println("");
         return ++j;
+
     }
     public static int removeDuplicatesFailure(int[] nums) {
         // 没有调整数据的结构顺序
@@ -27,5 +29,25 @@ public class RemoveDuplicatesfromSortedArray {
         }
         //for(int k : nums) System.out.println(k);
         return cnt;
+    }
+
+    public static int removeDuplicates2(int[] nums) {
+        if(nums.length==0) return 0;
+        int i=0;
+        int j=1;
+        while (i<nums.length && j<nums.length) {
+            if (nums[i]==nums[j++]) {
+            } else {
+                nums[i] = nums[j];
+                if (i+1>=nums.length || j+1>nums.length) break;
+                i++;j++;
+            }
+        }
+        return i+1;
+    }
+
+    public static void main(String[] args) {
+        int[] a = {1,1,2};
+        System.out.println(removeDuplicates2(a));
     }
 }
