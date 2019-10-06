@@ -1,4 +1,31 @@
 public class JumpGame {
+    /*
+    1. canJump Leetcode-55:https://leetcode-cn.com/problems/jump-game/
+    2. minJumpTime Leetcode-45:https://leetcode-cn.com/problems/jump-game-ii/
+     */
+
+    public static int minJumpTimeProject(int[] nums) {
+        if (canJump1(nums)) {
+            return minJumpTime(nums);
+        } else {
+            System.out.println("The JumpGame FAILS.");
+            return -1;
+        }
+    }
+
+    public static int minJumpTime(int[] nums) {
+        if (nums.length == 1) return 0;
+        int jump = 0, far = 0, end = 0;
+        for (int i = 0; i < nums.length - 1; i++) {
+            far = Math.max(far, nums[i] + i);
+            if (i == end) {
+                jump++;
+                end = far;
+            }
+        }
+        return jump;
+    }
+
     public static boolean canJump1(int[] nums) {
         int leftMostGoodPosition = nums.length - 1;
         for (int i = nums.length - 2; i >= 0; i--) {
@@ -9,20 +36,10 @@ public class JumpGame {
         return leftMostGoodPosition == 0;
     }
 
-    public static boolean canJump4(int[] nums) {
-        int rightest = 0;
-        for (int i = 0; i < nums.length; i++) {
-            if (rightest < i + nums[i]) {
-                rightest = i;
-            }
-        }
-        return rightest >= nums.length-1 ;
-    }
-
     public static boolean canJump2(int[] nums) {
         // do by myself
         if (nums[0] == 0) {
-            if (nums.length==1) return true;
+            if (nums.length == 1) return true;
             return false;
         }
         for (int i = 1; i < nums.length - 1; i++) {
@@ -65,10 +82,10 @@ public class JumpGame {
     }
 
     public static void main(String[] args) {
-        int[] nums = {2,0,0,2};
+        int[] nums = {2, 3, 1, 1, 2};
         System.out.println(canJump1(nums));
         System.out.println(canJump2(nums));
         System.out.println(canJump3(nums));
-        System.out.println(canJump4(nums));
+        System.out.println(minJumpTimeProject(nums));
     }
 }
