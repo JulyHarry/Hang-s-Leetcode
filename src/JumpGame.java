@@ -81,11 +81,27 @@ public class JumpGame {
         return true;
     }
 
+    public static int minJump(int[] nums) {
+        if (nums.length == 1) return 0;
+        if (nums.length == 2) return 1;
+        int[] dp = new int[nums.length];
+        for (int i = 0; i < nums.length; i++) {
+            int far = nums[i] + i;
+            if (far >= nums.length-1) return dp[i]+1;
+            for (int j = i + 1; j <= far; j++) {
+                if (dp[j]!=0) continue;
+                dp[j] = dp[i]+1;
+            }
+        }
+        return 0;
+    }
+
     public static void main(String[] args) {
-        int[] nums = {2, 3, 1, 1, 2};
-        System.out.println(canJump1(nums));
-        System.out.println(canJump2(nums));
-        System.out.println(canJump3(nums));
-        System.out.println(minJumpTimeProject(nums));
+        int[] nums = {2, 3, 1, 1, 1, 2};
+//        System.out.println(canJump1(nums));
+//        System.out.println(canJump2(nums));
+//        System.out.println(canJump3(nums));
+//        System.out.println(minJumpTimeProject(nums));
+        System.out.println(minJump(nums));
     }
 }

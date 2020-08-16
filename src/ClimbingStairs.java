@@ -1,4 +1,54 @@
 public class ClimbingStairs {
+    /*
+    1. climb LeetCode-70: https://leetcode-cn.com/problems/climbing-stairs/
+    2. minCostClimbingStairs LeetCode-746: https://leetcode-cn.com/problems/min-cost-climbing-stairs/submissions/
+     */
+    public static int climb(int n){
+        /**
+         * Approach #3: Dynamic Programming [Accepted]
+         * DP thoughts: the problem can be broken into subproblems, and it contains the optimal substructure property.
+         * One can reach the ith step in one of the two ways:
+         * 1. take a single step from (i-1)th step.
+         * 2. take a step of two from (i-2)th step.
+         * So, the total number of ways to reach ith step is equal to sum of ways of reaching (i-1)th step and ways of
+         * reaching (i-2)th step.
+         * dp[i] = dp[i-1] + dp[i-2] when dp denotes the number of ways to reach on ith step.
+         * Time complexity: O(n). Single loop up to n.
+         * Space complexity : O(n). dp array of size n is used.
+         * */
+        if (n == 1) return 1;
+        int[] dp = new int[n+1];
+        dp[1] = 1;
+        dp[2] = 2;
+        for (int i = 3; i <= n; i++){
+            dp[i] = dp[i-1] + dp[i-2];
+        }
+        return dp[n];
+//        //do by myself
+//        if (n==0) return 1;
+//        if (n==1) return 1;
+//        if (n==2) return 2;
+//        int[] dp = new int[n];
+//        dp[0] = 1;
+//        dp[1] = 2;
+//        for (int i = 2; i<n; i++) {
+//            dp[i] = dp[i-1] + dp[i-2];
+//        }
+//        return dp[n-1];
+    }
+
+    public static int minCostClimbingStairs(int[] cost) {
+        int[] dp = new int[cost.length];
+        if (cost.length==1) return 0;
+        if (cost.length==2) return 0;
+        dp[0] = cost[0];
+        dp[1] = cost[1];
+        for (int i=2; i<cost.length; i++) {
+            dp[i] = Math.min(dp[i-2], dp[i-1])+cost[i];
+        }
+        return Math.min(dp[cost.length-1], dp[cost.length-2]);
+    }
+
     public static int climbStairsA1(int n) {
         /**
          * Citation: https://leetcode.com/problems/climbing-stairs/solution/
@@ -41,29 +91,6 @@ public class ClimbingStairs {
         return memo[i];
     }
 
-    public static int climbStairsA3(int n){
-        /**
-         * Approach #3: Dynamic Programming [Accepted]
-         * DP thoughts: the problem can be broken into subproblems, and it contains the optimal substructure property.
-         * One can reach the ith step in one of the two ways:
-         * 1. take a single step from (i-1)th step.
-         * 2. take a step of two from (i-2)th step.
-         * So, the total number of ways to reach ith step is equal to sum of ways of reaching (i-1)th step and ways of
-         * reaching (i-2)th step.
-         * dp[i] = dp[i-1] + dp[i-2] when dp denotes the number of ways to reach on ith step.
-         * Time complexity: O(n). Single loop up to n.
-         * Space complexity : O(n). dp array of size n is used.
-         * */
-        if (n == 1) return 1;
-        int[] dp = new int[n+1];
-        dp[1] = 1;
-        dp[2] = 2;
-        for (int i = 3; i <= n; i++){
-            dp[i] = dp[i-1] + dp[i-2];
-        }
-        return dp[n];
-    }
-
     public static int climbStairsA4(int n){
         /**
          * Approach #4: Fibonacci Number [Accepted]
@@ -103,4 +130,21 @@ public class ClimbingStairs {
         double fibn = Math.pow((1+sqrt5)/2,n+1)-Math.pow((1-sqrt5)/2,n+1);
         return (int)(fibn/sqrt5);
     }
+
+
+    public static void main(String[] args) {
+        System.out.println(climb(20));
+        System.out.println(minCostClimbingStairs(new int[]{1, 100, 1, 1, 1, 100, 1, 1, 100, 1}));
+    }
+
+
+
+
+
+
+
+
+
+
+
 }

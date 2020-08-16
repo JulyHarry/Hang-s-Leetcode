@@ -41,10 +41,31 @@ public class Number {
         return list.iterator().next();
     }
 
+    public static boolean HappyNumber(int n) {
+        if (n == 1) {
+            return true;
+        } else {
+            if (n > Integer.MAX_VALUE) return false;
+            int sum = 0;
+            while (n / 10 > 0) {
+                sum += (n % 10) * (n % 10);
+                n /= 10;
+            }
+            sum += n * n;
+            return HappyNumber(sum);
+        }
+    }
+
+//    public static boolean isDigit (int n) {
+//        if (n % 10 >= 0 && n % 10 < 10 && n / 10)
+//    }
+
+
     public static void main(String[] args) {
-        int[] nums = {2,2,1};
-        System.out.println(SingleNumber1(nums));
-        System.out.println(SingleNumber2(nums));
-        System.out.println(SingleNumber3(nums));
+//        int[] nums = {2,2,1};
+//        System.out.println(SingleNumber1(nums));
+//        System.out.println(SingleNumber2(nums));
+//        System.out.println(SingleNumber3(nums));
+        System.out.println(HappyNumber(2));
     }
 }
