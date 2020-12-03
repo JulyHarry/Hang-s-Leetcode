@@ -4,6 +4,7 @@ import java.util.Properties;
 
 /**
  * 数据库封装类
+ * 实现：
  * 1. 连接
  * 2. 关闭
  */
@@ -28,6 +29,10 @@ public class JDBCUtils {
         }
     }
 
+    /**
+     * 连接Mysql数据库
+     * @return Connection类
+     */
     public static Connection getConnection () {
         try {
             return DriverManager.getConnection(url, user, password);
@@ -37,6 +42,11 @@ public class JDBCUtils {
         return null;
     }
 
+    /**
+     * @param connection Connection
+     * @param statement Statement or PreparedStatement
+     * @param resultSet ResultSet
+     */
     public static void close(Connection connection, Statement statement, ResultSet resultSet) {
         try {
             if (resultSet != null) {
