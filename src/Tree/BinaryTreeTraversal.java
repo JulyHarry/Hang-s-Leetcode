@@ -96,8 +96,7 @@ public class BinaryTreeTraversal {
                 if (p.right != null) {
                     stack.push(temp.right);
                 }
-            }
-            else {
+            } else {
                 stack.push(temp.left);
                 temp.left = null;
             }
@@ -117,8 +116,7 @@ public class BinaryTreeTraversal {
             if (temp.left == null && temp.right == null) {
                 TreeNode pop = stack.pop();
                 list.add(pop.val);
-            }
-            else {
+            } else {
                 if (temp.right != null) {
                     stack.push(temp.right);
                     temp.right = null;
@@ -153,8 +151,8 @@ public class BinaryTreeTraversal {
         if (root == null) return list;
         Stack<TreeNode> stack = new Stack<>();
         TreeNode node = root;
-        while(node!=null || !stack.empty()){
-            while(node!=null){
+        while (node != null || !stack.empty()) {
+            while (node != null) {
                 stack.push(node);
                 node = node.left;
             }

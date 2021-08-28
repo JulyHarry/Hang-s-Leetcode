@@ -2,6 +2,7 @@ package unionfind;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author HarryUp
@@ -25,6 +26,12 @@ public class EvaluateDivision {
             }
             uf.union(map.get(x), map.get(y), values[i]);
         }
+        for (Map.Entry<String, Integer> entry : map.entrySet()) {
+            entry.getKey().toString();
+        }
+        String a = "10";
+        int b = Integer.valueOf(a);
+        a.substring(a.lastIndexOf('1'), a.indexOf('0'));
         double[] result = new double[queries.size()];
         for (int i = 0; i < queries.size(); i++) {
             String x = queries.get(i).get(0);

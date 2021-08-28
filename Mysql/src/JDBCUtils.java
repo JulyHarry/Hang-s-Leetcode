@@ -1,5 +1,7 @@
 import java.io.FileInputStream;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 /**
@@ -31,9 +33,10 @@ public class JDBCUtils {
 
     /**
      * 连接Mysql数据库
+     *
      * @return Connection类
      */
-    public static Connection getConnection () {
+    public static Connection getConnection() {
         try {
             return DriverManager.getConnection(url, user, password);
         } catch (Exception e) {
@@ -44,8 +47,8 @@ public class JDBCUtils {
 
     /**
      * @param connection Connection
-     * @param statement Statement or PreparedStatement
-     * @param resultSet ResultSet
+     * @param statement  Statement or PreparedStatement
+     * @param resultSet  ResultSet
      */
     public static void close(Connection connection, Statement statement, ResultSet resultSet) {
         try {
@@ -66,7 +69,7 @@ public class JDBCUtils {
         }
     }
 
-    public void close(Connection connection, Statement statement) {
+    public static void close(Connection connection, Statement statement) {
         try {
             if (statement != null) {
                 statement.close();
@@ -111,6 +114,74 @@ public class JDBCUtils {
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }
+    }
+
+    /**
+     * 增删改
+     * @param sql
+     * @return
+     */
+    public static int update(String sql, Object ... params) {
+        try {
+            Connection connection = JDBCUtils.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            for (int i = 0; i < params.length; i++) {
+                preparedStatement.setObject(++i, params[i]);
+            }
+            int update = preparedStatement.executeUpdate();
+            return update;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * @param sql
+     * @param params
+     * @return
+     */
+    public static Object querySingle (String sql, Object... params) {
+        try {
+            Connection connection = JDBCUtils.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            for (int i = 0; i < params.length; i++) {
+                preparedStatement.setObject(++i, params[0]);
+            }
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+//            JDBCUtils.close();
+        }
+        return null;
+    }
+
+    /**
+     * @param sql
+     * @param params
+     * @return
+     */
+    public static List<Object> queryMulti (String sql, Object... params) {
+        try {
+            Connection connection = JDBCUtils.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            for (int i = 0; i < params.length; i++) {
+                preparedStatement.setObject(++i, params[0]);
+            }
+            ResultSet resultSet = preparedStatement.executeQuery();
+            List<Object> list = new ArrayList<Object>();
+            while (resultSet.next()) {
+                list.add(null);
+            }
+            return list;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+//            JDBCUtils.close();
         }
     }
 }

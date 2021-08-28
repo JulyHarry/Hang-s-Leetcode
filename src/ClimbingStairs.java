@@ -16,7 +16,9 @@ public class ClimbingStairs {
          * Time complexity: O(n). Single loop up to n.
          * Space complexity : O(n). dp array of size n is used.
          * */
-        if (n == 1) return 1;
+        if (n == 1) {
+            return 1;
+        }
         int[] dp = new int[n+1];
         dp[1] = 1;
         dp[2] = 2;
@@ -39,8 +41,12 @@ public class ClimbingStairs {
 
     public static int minCostClimbingStairs(int[] cost) {
         int[] dp = new int[cost.length];
-        if (cost.length==1) return 0;
-        if (cost.length==2) return 0;
+        if (cost.length==1) {
+            return 0;
+        }
+        if (cost.length==2) {
+            return 0;
+        }
         dp[0] = cost[0];
         dp[1] = cost[1];
         for (int i=2; i<cost.length; i++) {
@@ -61,8 +67,12 @@ public class ClimbingStairs {
     }
 
     public static int climb_StairsA1(int i, int n){
-        if (i > n) return 0;
-        if (i == n) return 1;
+        if (i > n) {
+            return 0;
+        }
+        if (i == n) {
+            return 1;
+        }
         return climb_StairsA1(i + 1, n) + climb_StairsA1(i + 2, n);
     }
 
@@ -98,7 +108,9 @@ public class ClimbingStairs {
          * Time complexity: O(n). Single loop up to n is required to calculate nth fibonacci number.
          * Space complexity : O(1). Constant space is used.
          * */
-        if (n == 1) return 1;
+        if (n == 1) {
+            return 1;
+        }
         int first = 1;
         int second = 2;
         for (int i = 3; i <= n; i++) {
