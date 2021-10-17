@@ -78,11 +78,67 @@ class MinCostToConnectAllPoints {
         System.out.println(i);
     }
 
-    /*
+    /**
      * Solution is here.
      */
 //leetcode submit region begin(Prohibit modification and deletion)
+
+
     class Solution {
+        int[][] points;
+        PriorityQueue<Edge> pq;
+        boolean[] visited;
+        int size;
+
+        public int minCostConnectPoints(int[][] points) {
+            this.points = points;
+            pq = new PriorityQueue<>((a, b) -> (a.distance - b.distance));
+            visited = new boolean[points.length];
+            size = 0;
+            int res = 0;
+            add(0);
+            while (!pq.isEmpty() && size < points.length) {
+                Edge node = pq.poll();
+                int next = node.end;
+                if (!visited[next]) {
+                    res += node.distance;
+                    add(next);
+                }
+            }
+            return res;
+        }
+
+        public void add(int node) {
+            visited[node] = true;
+            size++;
+            for (int i = 0; i < visited.length; i++) {
+                if (!visited[i]) {
+                    int distance = Math.abs(points[node][0] - points[i][0]) + Math.abs(points[node][1] - points[i][1]);
+                    pq.add(new Edge(node, i, distance));
+                }
+            }
+        }
+
+        class Edge {
+            int begin;
+            int end;
+            int distance;
+
+            public Edge(int begin, int end, int distance) {
+                this.begin = begin;
+                this.end = end;
+                this.distance = distance;
+            }
+        }
+    }
+
+    //leetcode submit region end(Prohibit modification and deletion)
+
+
+    /**
+     * Kruskal
+     */
+    class SolutionKruskal {
         public int minCostConnectPoints(int[][] points) {
             UnionFind uf = new UnionFind(points.length);
             PriorityQueue<Edge> pq = new PriorityQueue<>((a, b) -> (a.distance - b.distance));
@@ -155,8 +211,5 @@ class MinCostToConnectAllPoints {
                 return true;
             }
         }
-
     }
-//leetcode submit region end(Prohibit modification and deletion)
-
 }
